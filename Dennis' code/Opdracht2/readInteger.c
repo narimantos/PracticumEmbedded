@@ -17,14 +17,17 @@
 
 int readInteger(){
     //int i = '0';
-    int value = 0;
+    int value = 0, i = '0';
     /*while(i != 10 || i != 13){
         value += (i-'0');
         while(~UCSR0A & (1<<RXC0));
         i = UDR0;
     }*/
-    while(~UCSR0A & (1<<RXC0));
-    value = UDR0 - '0';
+    while(i != 32) {
+        value = value*10 + (i - '0');
+        while(~UCSR0A & (1<<RXC0));
+        i = UDR0;
+    }
     return value;
 }
 
