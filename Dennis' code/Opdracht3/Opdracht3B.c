@@ -10,6 +10,8 @@
 #include <util/delay.h>
 
 int main(void) {
+    
+    EICRA = EICRA | ( 1 << ISC01 ) | (1<<ISC00);
     DDRB = 0x1E;
     DDRD &= ~(1 << PD2);
     int getal = 1;
