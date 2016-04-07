@@ -69,7 +69,6 @@ int main(void) {
             case '0':
                 PORTB=0x01;
                 rx='2';
-                initTimer();
                 vertraging(10);
                 break;
             case '1':
