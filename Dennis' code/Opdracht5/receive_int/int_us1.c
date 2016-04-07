@@ -32,10 +32,14 @@ ISR(TIMER1_OVF_vect) {
     TIMSK1 &= ~(1<< TOIE0);
 }
 
-void initTimer() {
+void timer( uint8_t w) {
+    
     TCCR1B |= (1 << CS12);
     TIMSK1 |= (1<< TOIE0);
+    TCNT1 = 0xFFFF-(w*(1000000/256));
+
 }
+
 
 
 int main(void) {
@@ -60,14 +64,12 @@ int main(void) {
             case '0':
                 PORTB=0x01;
                 rx='2';
-                initTimer();
-                TCNT1 = 0xFFFF-(10*(1000000/256));
+                timer(10);
                 break;
             case '1':
                 PORTB=0x02;
                 rx='2';
-                initTimer();
-                TCNT1 = 0xFFFF-(5*(1000000/256));
+                timer(5);
                 break;
         }
         
