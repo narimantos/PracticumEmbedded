@@ -9,9 +9,17 @@
 
 #define LED_TOGGLE      PINB |= (1<<PINB0)
 
-ISR(TIMER1_OVF_vect) {
-    LED_TOGGLE;
+void initTimer()
+{
+    TCCR1A = (0 << WGM10) | (0 << WGM11) | (1 << COM1B0) | (0 << COM1B1);
+    TCCR1B = (1 << WGM13) | (1 << WGM12);
+    TCNT1 = 0x00;
+    TCCR1B |= (1 << CS10);
+    ICR1 = 50000;
+    OCR1AL = 0;
+    OCR1BL = 0;
 }
+
 
 
 int main(void) {
@@ -20,10 +28,7 @@ int main(void) {
     
     sei();
 
-    
-    TCCR1B |= (1 << CS01) | (0 << CS00);
-    TIMSK1 |= (1<< TOIE0);
-    
+    initTimer();
     while (1) {
         //LED_TOGGLE;
         //_delay_ms(500);

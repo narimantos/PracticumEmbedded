@@ -1,32 +1,27 @@
 #define F_CPU 1000000
 #include <avr/io.h>
-#include <avr/interrupt.h>
 #include <util/delay.h>
-
-int counter = 0;
-
-
-ISR(TIMER0_OVF_vect)
+void pwm_init()
 {
-    counter++;
-    if (counter >= 4) {
-        PINB = (1<<PINB0);
-        counter = 0;
-    }
-    TCNT0 = 11;
+    // initialize TCCR0 as per requirement, say as follows
+    TCCR0A |= (1<<WGM00)|(1<<COM0B1)|(1<<WGM01);
+    TCCR0B |= (1<<CS00);
+    
+    // make sure to make OC0 pin (pin PB3 for atmega32) as output pin
+    DDRB |= (1<<PB3);
 }
 
-int main()
+void main()
 {
-    DDRB = 0xFF;
-    sei();
-    TCCR0B |= (1 << CS02) | (1<< CS00);
-    TIMSK0 |= (1<< TOIE0);
-    TCNT0 = 11;
+    uint8_t duty;
+    duty = 115;       // duty cycle = 45% of 255 = 114.75 = 115
     
-    while(1){
-        //PINB |= (1<<PINB0);
-        //_delay_ms(500);
+    // initialize timer in PWM mode
+    pwm_init();
+    
+    // run forever
+    while(1)
+    {
+        OCR0B = duty;
     }
-    return 0;
 }
