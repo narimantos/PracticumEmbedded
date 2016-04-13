@@ -11,6 +11,7 @@
 #include <util/delay.h>
 
 uint16_t duty = 0xFFFF*0.075;
+int counter = 0;
 
 ISR(TIMER0_OVF_vect)
 {
@@ -43,7 +44,7 @@ void timer0_init() {
     TCNT0 = 11;
 }
 
-void main()
+int main()
 {
 
     
@@ -55,4 +56,5 @@ void main()
     {
 
     }
+    return 0;
 }
