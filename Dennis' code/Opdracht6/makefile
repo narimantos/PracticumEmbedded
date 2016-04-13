@@ -7,7 +7,7 @@
 MCU   = atmega168
 
 ## This is where your main() routine lives 
-MAIN = pwm.c
+MAIN = pwmC.c
 
 ## If you've split your program into multiple .c / .h files, 
 ## include the additional source (in same directory) here 
@@ -22,7 +22,7 @@ LOCAL_SOURCE =
 
 PROGRAMMER_TYPE = avrisp
 # extra arguments to avrdude: baud rate, chip type, -F flag, etc.
-PROGRAMMER_ARGS = -b 19200 -P /dev/tty.usbmodem411
+PROGRAMMER_ARGS = -b 19200 -P com1
 
 ##########------------------------------------------------------##########
 ##########                   Makefile Magic!                    ##########

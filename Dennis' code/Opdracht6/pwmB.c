@@ -9,6 +9,7 @@
 #define F_CPU 1000000
 #include <avr/io.h>
 #include <util/delay.h>
+#include <avr/interrupt.h>
 uint16_t duty = 0;
 int counter = 0;
 
@@ -42,7 +43,7 @@ void timer0_init() {
 
 int main()
 {
-
+sei(); 
     
     // initialize timer in PWM mode
     pwm_init();
